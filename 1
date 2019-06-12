@@ -1,0 +1,105 @@
+#include <iostream>
+/*
+ejercicio :
+de un estudiante se sabe rut,nombre completo,email,telefono,
+construlla un abb de estudiantes utilazando como clave
+el rut.
+*/
+using namespace std;
+typedef struct Estudiante
+{
+    int rut;
+    string nombre;
+    string apellido;
+    string aplellido2;
+    string email;
+    int telefono;
+}Estudiante;
+
+typedef struct NODO
+{
+    Estudiante info;
+     NODO*der;
+     NODO*izq;
+    struct NODO*link;
+};
+
+class ABB
+{
+public:
+    class NODO
+    {
+    public:
+        NODO (Estudiante , NODO , NODO );
+        ~NODO(){}
+        Estudiante a;
+        NODO *izq;
+        NODO *der;
+    };
+    typedef NODO *AB;
+    ABB();
+    virtual ~ABB();
+    void ver();
+    void insertar(Estudiante);
+    bool existe (Estudiante);
+    Estudiante buscar (Estudiante);
+    bool vacio();
+    void getestudiante();
+    void eliminar(Estudiante);
+
+    private:
+    AB b;
+   void verABB(AB);
+   void insertarABB(AB&, Estudiante);
+   void buscarABB(AB, Estudiante);
+   void eliminar(AB& , Estudiante);
+   void mayor(AB& , AB&);
+   void menor(AB& , AB&);
+};
+
+ABB::ABB()
+{
+   b= NULL;
+}
+ABB::~ABB()
+{
+    //dtor
+}
+void ABB::verABB(AB T)
+{
+
+if (T != NULL)
+{
+    cout << "---"<<endl;
+    verABB(T->izq);
+    cout<<""<<endl;
+    verABB(T->der);
+
+}
+}
+void ABB::insertarABB(AB &T, Estudiante a)
+{
+    if(T == NULL)
+    {
+        T = new NODO(a, NULL, NULL);
+    }
+    else
+    {
+        if(a.rut < T->info.rut)
+        {
+            insertarABB(T->izq, a);
+        }
+        else
+        {
+            if(a.rut > T->info.rut){
+                insertarABB(T->der, a);}
+        }
+    }
+}
+
+
+int main()
+{
+    cout << "Hello world!" << endl;
+    return 0;
+}
